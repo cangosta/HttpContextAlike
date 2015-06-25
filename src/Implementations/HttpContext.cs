@@ -1,13 +1,18 @@
+using HttpContextAlike.Interfaces;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Principal;
 using System.Threading;
+using System.Net.Http;
 
-namespace HttpContextAlike
+namespace HttpContextAlike.Implementations
 {
-    public abstract class HttpContext : IHttpContext
+    public sealed class HttpContext : IHttpContext
     {
+        private const string HttpContextProperty = "MS_HttpContext";
+
         private static readonly ReaderWriterLockSlim Lock = new ReaderWriterLockSlim();
         public static IHttpContext Current
         {
@@ -39,12 +44,12 @@ namespace HttpContextAlike
 
         private static IHttpContext ResolveContext()
         {
-            return CallContext.LogicalGetData("ctx") as IHttpContext;
+            return CallContext.LogicalGetData(HttpContextProperty) as IHttpContext;
         }
 
         private static void SaveContext(IHttpContext value)
         {
-            CallContext.LogicalSetData("ctx", value);
+            CallContext.LogicalSetData(HttpContextProperty, value);
         }
 
         public DateTime Timestamp { get; protected set; }
@@ -53,5 +58,24 @@ namespace HttpContextAlike
         public IDictionary Items { get; protected set; }
         public IPrincipal User { get; protected set; }
         public object Inner { get; protected set; }
+
+        public HttpContext()
+        {
+            Timestamp = DateTime.Now;
+            Items = new ConcurrentDictionary<string, object>();
+            User = Thread.CurrentPrincipal;
+            Inner = this;
+        }
+
+        public HttpContext(HttpRequestMessage request) : this()
+        {
+            Request = new HttpRequest(request);
+            //request.Properties.Add("MS_HttpContext", this);
+        }
+
+        public void SetResponse(HttpResponseMessage response)
+        {
+            Response = new HttpResponse(response);
+        }
     }
 }

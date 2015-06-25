@@ -1,13 +1,14 @@
+using HttpContextAlike.Interfaces;
 using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 
-namespace HttpContextAlike.SelfHost
+namespace HttpContextAlike.Implementations
 {
-    public class SelfHostHttpRequest : IHttpRequest
+    public class HttpRequest : IHttpRequest
     {
-        public SelfHostHttpRequest(HttpRequestMessage request)
+        public HttpRequest(HttpRequestMessage request)
         {
             Inner = request;
         }
