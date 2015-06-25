@@ -1,4 +1,4 @@
-namespace HttpContextAlike.Interfaces
+namespace HttpContextAlike
 {
     public interface IHttpResponse
     {

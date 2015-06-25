@@ -1,10 +1,9 @@
-using HttpContextAlike.Interfaces;
 using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 
-namespace HttpContextAlike.Implementations
+namespace HttpContextAlike
 {
     public class HttpRequest : IHttpRequest
     {

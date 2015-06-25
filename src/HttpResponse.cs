@@ -1,7 +1,6 @@
-using HttpContextAlike.Interfaces;
 using System.Net.Http;
 
-namespace HttpContextAlike.Implementations
+namespace HttpContextAlike
 {
     public class HttpResponse : IHttpResponse
     {

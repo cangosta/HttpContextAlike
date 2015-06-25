@@ -1,4 +1,3 @@
-using HttpContextAlike.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -7,7 +6,7 @@ using System.Security.Principal;
 using System.Threading;
 using System.Net.Http;
 
-namespace HttpContextAlike.Implementations
+namespace HttpContextAlike
 {
     public sealed class HttpContext : IHttpContext
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Security.Principal;
 
-namespace HttpContextAlike.Interfaces
+namespace HttpContextAlike
 {
     public interface IHttpContext
     {
