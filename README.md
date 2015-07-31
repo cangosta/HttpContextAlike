@@ -5,9 +5,15 @@ This library creates a .net Web Api Handler that creates a System.Web.HTTPContex
 
 Configure your ASP.NET Web API application with this library by putting the following code in your WebApiConfig.Register() method:
 
-    config.MessageHandlers.Add(jwtHandler);
+    config.MessageHandlers.Add(new HttpContextHandler());
     
+Access your user variable everywhere in your code:
 
+    HttpContext.Current.User
+    
+or your Request variable:
+
+    HttpContext.Current.Request
 
 ## Future work
 * Create an OWIN-middleware to move the creation of the HttpContext at the OWIN level.
